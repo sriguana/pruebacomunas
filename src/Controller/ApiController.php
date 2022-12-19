@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Repository\CommuneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,23 +20,12 @@ class ApiController extends AbstractController {
     #[Route('/localidad', name: 'app_api_localidad', methods: 'POST')]
     public function index(Request $request): JsonResponse {
         
-        // $preNames = $request->query->get('filter');
         $preNames = $request->request->get('filter');
         $names = explode(',', $preNames);
-        
-
-
-        // array_push($names, "Metropolitana de Santiago");
-        if(empty($names)) {
-            // array_push($names, "Tarapacá");
-            // array_push($names, "Copiapó");
-            // array_push($names, "Ñuñoa");
-        }
 
         $localidads = $this->communeRepository->findByNames($names);
 
         // Filter localidads to retLocalidads
-
         $retLocalidads = array();
 
         foreach ($localidads as $loc) {
@@ -133,22 +121,6 @@ class ApiController extends AbstractController {
         return $this->json([
             'results' => array_values($retLocalidads)
         ]);
-    }
-
-    #[Route('/api/localidad/{ids}/', name: 'app_api_localidad_ids', methods: 'POST')]
-    public function add(Request $request): JsonResponse {
-        $data = json_decode($request->getContent(), true);
-
-        $name = $data['name'];
-        $type = $data['type'];
-        $photoUrls = $data['photoUrls'];
-
-        if (empty($name) || empty($type)) {
-            throw new NotFoundHttpException('Expecting mandatory parameters!');
-        }
-
-        $this->petRepository->savePet($name, $type, $photoUrls);
-        return new JsonResponse(['status' => 'Pet created!'], Response::HTTP_CREATED);
     }
 
 }
