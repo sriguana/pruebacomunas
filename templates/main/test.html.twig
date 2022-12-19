@@ -1,0 +1,45 @@
+{% set theme_config = attribute(config.themes, config.system.pages.theme) %}
+
+{% block head %}
+    {% include 'partials/metadata.html.twig' %}
+    {% block stylesheets %}
+        {% do assets.addCss('theme://css-compiled/nucleus.css',102) %}
+        {% do assets.addCss('theme://css-compiled/theme.css',101) %}
+        {% do assets.addCss('theme://css/custom.css',100) %}
+        {% do assets.addCss('theme://css/font-awesome.min.css',100) %}
+        {% do assets.addCss('theme://css/featherlight.min.css') %}
+        {% do assets.addCss('https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css') %}
+        {% do assets.addCss('theme://css/s2-docs.css', 100) %} {% do assets.addCss('theme://css/theme.css',100) %}
+        {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
+            {% do assets.addCss('theme://css/nucleus-ie9.css') %}
+            {% do assets.addCss('theme://css/pure-0.5.0/grids-min.css') %}
+            {% do assets.addJs('theme://js/html5shiv-printshiv.min.js') %}
+        {% endif %}
+        {{ assets.css() }
+{% endblock %}
+
+{% block javascripts %}
+{% do assets.addJs('jquery',101) %}
+{% do assets.addJs('theme://js/modernizr.custom.71422.js',100) %}
+{% do assets.addJs('https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js', 100) %}
+{% do assets.addJs('https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js', 100) %}
+{% do assets.addJs('theme://js/featherlight.min.js') %}
+{% do assets.addJs('theme://js/clipboard.min.js') %}
+{% do assets.addJs('theme://js/jquery.scrollbar.min.js') %}
+{% do assets.addJs('theme://js/learn.js') %}
+{% do assets.addJs('theme://js/data-fill-from.js') %}
+{{ assets.js() }} {% include "partials/js/source-states.html.twig" %}
+    {% endblock %} {% endblock %}
+    {% block sidebar %}
+        {% include 'partials/logo.html.twig' %}
+        {{ 'THEME_LEARN2_SEARCH_DOCUMENTATION'|t }}
+        {% include 'partials/sidebar.html.twig' %}
+    {% endblock %}
+    {% block body %}
+    {% block topbar %}{% if theme_config.github.position == 'top' or config.plugins.breadcrumbs.enabled %}
+            {% if theme_config.github.position == 'top' %}
+                {% include 'partials/github_link.html.twig' %}
+            {% endif %} {% if config.plugins.breadcrumbs.enabled %} {% include 'partials/breadcrumbs.html.twig' %} {% endif %}
+        {% endif %}{% endblock %} {% block content %}{% endblock %} {% block footer %} {% if theme_config.github.position == 'bottom' %} {% include 'partials/github_note.html.twig' %} {% endif %} {% endblock %}
+        {% block navigation %}{% endblock %}
+    {% endblock %} {% block analytics %} {% if theme_config.google_analytics_code %} {% include 'partials/analytics.html.twig' %} {% endif %} {% endblock %}

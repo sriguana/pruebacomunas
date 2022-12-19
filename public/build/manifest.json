@@ -1,0 +1,7 @@
+{
+  "build/js/app.css": "/build/js/app.css",
+  "build/js/app.js": "/build/js/app.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_core-js_modules_es_da-4873c5.css": "/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_core-js_modules_es_da-4873c5.css",
+  "build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_core-js_modules_es_da-4873c5.js": "/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_core-js_modules_es_da-4873c5.js"
+}
